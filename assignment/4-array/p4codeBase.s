@@ -23,18 +23,6 @@
                .word 2
                .word 1
 
-    sumlbl:
-               .asciiz "Sum: "
-    pallbl:
-               .asciiz "Is palindrome: "
-    revlbl:
-               .asciiz "Reverse Number: "
-    endl:
-               .asciiz "\n"
-    space:
-               .asciiz " "
-
-
 
 .text
 
@@ -43,7 +31,7 @@
     li $t1, 10
 
 loop1:
-    beqz $st1, reverse
+    beqz $t1, reverse
     lw $t2, $s0
     add $t0, $t0,$t2
     addi $s0, $s0, 4
