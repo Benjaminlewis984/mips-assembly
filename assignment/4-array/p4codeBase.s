@@ -23,8 +23,71 @@
                .word 2
                .word 1
 
+    sumlbl:
+               .asciiz "Sum: "
+    pallbl:
+               .asciiz "Is palindrome: "
+    revlbl:
+               .asciiz "Reverse Number: "
+    endl:
+               .asciiz "\n"
+    space:
+               .asciiz " "
+
+
+
 .text
 
+    la $s0, sumarr
+    li $t0, 0
+    li $t1, 10
+
+loop1:
+    beqz $st1, reverse
+    lw $t2, $s0
+    add $t0, $t0,$t2
+    addi $s0, $s0, 4
+    subi $t1, $t1, 1
+    j loop1
+
+reverse:
+    li $t1 45689
+    li $t2, 0
+    li $t3, -1
+    li $t4, 10
+
+loop2:
+    ble $t1, $0, palindrome
+    div $t1, $t1, $t4
+    mfhi $t3
+    mflo $t1
+    mul $t2, $t2, 10
+    add $t2, $t2, $t3
+    j loop2
+
+palidrome:
+    la $s0, arr
+    la $s1, arr
+    addi $s1, $s1, 32
+    li $t1, 0
+    li $t3, 8
+    li $t4, 1
+
+loop3:
+    bge $t1, $t3, exit
+    lw $1, $s0
+    l2 $2, $s1
+    bne $1, $2, notpalindrome
+    addi $t1, $t1, 1
+    subi $t3, $t3, 1
+    addi $s0, $s0, 4
+    subi $s1, $s1, 4
+    j loop3
+
+notpalidrome:
+    li $t4, -1
+    j exit
+    
 # sum               --> $s0
 # address of sumarr --> $s1
 # rev               --> $s2
